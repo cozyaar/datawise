@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" modified="2026-10-15T02:00:00.000Z" agent="DataWise" version="24.0.0" type="device">
+  <diagram id="datawise_erd" name="DataWise 3NF Relational Model">
+    <mxGraphModel dx="1420" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 1. DEPARTMENTS -->
+        <mxCell id="tbl_departments" value="&lt;b&gt;departments&lt;/b&gt;&#xa;---------------------------------------&#xa;PK department_id : INT&#xa;   code : VARCHAR(10) UNIQUE&#xa;   name : VARCHAR(100)&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#e0f2fe;strokeColor=#0284c7;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- 2. INSTRUCTORS -->
+        <mxCell id="tbl_instructors" value="&lt;b&gt;instructors&lt;/b&gt;&#xa;---------------------------------------&#xa;PK instructor_id : INT&#xa;FK department_id : INT&#xa;   first_name : VARCHAR(50)&#xa;   last_name : VARCHAR(50)&#xa;   email : VARCHAR(100) UNIQUE&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#f0fdf4;strokeColor=#16a34a;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="230" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- 3. STUDENTS -->
+        <mxCell id="tbl_students" value="&lt;b&gt;students&lt;/b&gt;&#xa;---------------------------------------&#xa;PK student_id : INT&#xa;FK department_id : INT&#xa;   student_identifier : VARCHAR(20)&#xa;   first_name : VARCHAR(50)&#xa;   last_name : VARCHAR(50)&#xa;   email : VARCHAR(100) UNIQUE&#xa;   cohort_year : INT&#xa;   gpa : NUMERIC(3,2)&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="220" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- 4. COURSES -->
+        <mxCell id="tbl_courses" value="&lt;b&gt;courses&lt;/b&gt;&#xa;---------------------------------------&#xa;PK course_id : INT&#xa;FK department_id : INT&#xa;FK instructor_id : INT&#xa;   code : VARCHAR(20)&#xa;   title : VARCHAR(150)&#xa;   credits : INT&#xa;   capacity : INT CHECK &gt; 0&#xa;   semester : VARCHAR(20)&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#e0f2fe;strokeColor=#0284c7;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="230" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- 5. ENROLLMENTS -->
+        <mxCell id="tbl_enrollments" value="&lt;b&gt;enrollments&lt;/b&gt;&#xa;---------------------------------------&#xa;PK enrollment_id : INT&#xa;FK student_id : INT&#xa;FK course_id : INT&#xa;   final_score : NUMERIC(5,2)&#xa;   letter_grade : VARCHAR(2)&#xa;   is_passed : BOOLEAN&#xa;   enrolled_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fce7f3;strokeColor=#db2777;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="340" width="230" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- 6. ATTENDANCE -->
+        <mxCell id="tbl_attendance" value="&lt;b&gt;attendance&lt;/b&gt;&#xa;---------------------------------------&#xa;PK attendance_id : INT&#xa;FK enrollment_id : INT&#xa;   session_date : DATE&#xa;   status : VARCHAR(10)&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#f3e8ff;strokeColor=#9333ea;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="580" width="230" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- 7. ASSESSMENT_COMPONENTS -->
+        <mxCell id="tbl_components" value="&lt;b&gt;assessment_components&lt;/b&gt;&#xa;---------------------------------------&#xa;PK component_id : INT&#xa;FK course_id : INT&#xa;   name : VARCHAR(50)&#xa;   type : VARCHAR(30)&#xa;   weight_pct : NUMERIC(5,2)&#xa;   max_score : NUMERIC(5,2)&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="690" y="40" width="240" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- 8. ASSESSMENTS -->
+        <mxCell id="tbl_assessments" value="&lt;b&gt;assessments&lt;/b&gt;&#xa;---------------------------------------&#xa;PK assessment_id : INT&#xa;FK enrollment_id : INT&#xa;FK component_id : INT&#xa;   score_obtained : NUMERIC(5,2)&#xa;   submitted_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fce7f3;strokeColor=#db2777;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="690" y="300" width="240" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- 9. QUERY_SESSIONS -->
+        <mxCell id="tbl_query_sessions" value="&lt;b&gt;query_sessions&lt;/b&gt;&#xa;---------------------------------------&#xa;PK session_id : INT&#xa;   question : TEXT&#xa;   generated_sql : TEXT&#xa;   execution_time_ms : INT&#xa;   row_count : INT&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#e0f2fe;strokeColor=#0284c7;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="690" y="500" width="240" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- 10. SCENARIOS -->
+        <mxCell id="tbl_scenarios" value="&lt;b&gt;scenarios&lt;/b&gt;&#xa;---------------------------------------&#xa;PK scenario_id : INT&#xa;FK origin_session_id : INT&#xa;   scenario_type : VARCHAR(50)&#xa;   title : VARCHAR(150)&#xa;   parameters : JSONB&#xa;   simulation_summary : JSONB&#xa;   created_at : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#f3e8ff;strokeColor=#9333ea;fontColor=#0f172a;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="690" y="700" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- RELATIONSHIP CONNECTORS -->
+        <!-- 1. departments -> instructors -->
+        <mxCell id="rel_dept_inst" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_departments" target="tbl_instructors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 2. departments -> students -->
+        <mxCell id="rel_dept_stud" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;entryX=0.25;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_instructors" target="tbl_students">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 3. departments -> courses -->
+        <mxCell id="rel_dept_course" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;entryX=0;entryY=0.3;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_departments" target="tbl_courses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 4. instructors -> courses -->
+        <mxCell id="rel_inst_course" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.4;entryX=0;entryY=0.8;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_instructors" target="tbl_courses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 5. courses -> enrollments -->
+        <mxCell id="rel_course_enroll" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_courses" target="tbl_enrollments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 6. students -> enrollments -->
+        <mxCell id="rel_stud_enroll" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;entryX=0;entryY=0.5;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_students" target="tbl_enrollments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 7. courses -> assessment_components -->
+        <mxCell id="rel_course_comp" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3;entryX=0;entryY=0.3;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_courses" target="tbl_components">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 8. assessment_components -> assessments -->
+        <mxCell id="rel_comp_assess" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_components" target="tbl_assessments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 9. enrollments -> assessments -->
+        <mxCell id="rel_enroll_assess" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_enrollments" target="tbl_assessments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 10. enrollments -> attendance -->
+        <mxCell id="rel_enroll_attend" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="tbl_enrollments" target="tbl_attendance">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 11. query_sessions -> scenarios -->
+        <mxCell id="rel_sess_scen" value="0..1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#64748b;strokeWidth=1.5;endArrow=ERmany;endFill=0;startArrow=ERzeroToOne;startFill=0;dashed=1;" edge="1" parent="1" source="tbl_query_sessions" target="tbl_scenarios">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

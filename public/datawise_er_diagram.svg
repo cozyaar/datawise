@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1720" height="980" viewBox="0 0 1720 980" xmlns="http://www.w3.org/2000/svg" style="background:#141720; font-family:'Segoe UI', -apple-system, sans-serif;">
+  
+  <defs>
+    <!-- Workbench Grid Pattern -->
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255, 255, 255, 0.035)" stroke-width="1"/>
+    </pattern>
+
+    <!-- Crow's Foot Connector Markers -->
+    <marker id="crow-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <line x1="10" y1="1" x2="10" y2="11" stroke="#38bdf8" stroke-width="1.8"/>
+    </marker>
+    <marker id="crow-emerald" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#34d399" stroke-width="1.8"/>
+      <line x1="10" y1="1" x2="10" y2="11" stroke="#34d399" stroke-width="1.8"/>
+    </marker>
+    <marker id="crow-purple" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#a78bfa" stroke-width="1.8"/>
+      <line x1="10" y1="1" x2="10" y2="11" stroke="#a78bfa" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="100%" height="100%" fill="#141720"/>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+
+  <!-- Top Toolbar Bar -->
+  <rect x="0" y="0" width="1720" height="54" fill="#0c0e15" stroke="#232734" stroke-width="1"/>
+  
+  <text x="24" y="34" fill="#38bdf8" font-size="16" font-weight="bold" font-family="'Segoe UI', sans-serif">
+    PostgreSQL 18.6 — Official Relational ER Diagram (3NF)
+  </text>
+  
+  <g transform="translate(480, 18)">
+    <rect x="0" y="0" width="135" height="22" rx="4" fill="#181e2b" stroke="#334155"/>
+    <text x="10" y="15" fill="#94a3b8" font-size="11" font-family="monospace">Host: 127.0.0.1:5432</text>
+  </g>
+  <g transform="translate(625, 18)">
+    <rect x="0" y="0" width="115" height="22" rx="4" fill="#181e2b" stroke="#334155"/>
+    <text x="10" y="15" fill="#38bdf8" font-size="11" font-family="monospace">DB: datawise</text>
+  </g>
+  <g transform="translate(750, 18)">
+    <rect x="0" y="0" width="115" height="22" rx="4" fill="#181e2b" stroke="#334155"/>
+    <text x="10" y="15" fill="#34d399" font-size="11" font-family="monospace">Schema: public</text>
+  </g>
+  <g transform="translate(875, 18)">
+    <rect x="0" y="0" width="95" height="22" rx="4" fill="#181e2b" stroke="#334155"/>
+    <text x="10" y="15" fill="#e2e8f0" font-size="11" font-family="monospace">10 Tables</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(1320, 16)">
+    <rect x="0" y="0" width="370" height="24" rx="4" fill="#181e2b" stroke="#334155"/>
+    <rect x="12" y="5" width="22" height="14" rx="2" fill="#eab308"/>
+    <text x="15" y="16" fill="#000" font-size="9" font-weight="bold" font-family="monospace">PK</text>
+    <text x="40" y="16" fill="#cbd5e1" font-size="11">Primary Key</text>
+
+    <rect x="122" y="5" width="22" height="14" rx="2" fill="#0284c7"/>
+    <text x="126" y="16" fill="#fff" font-size="9" font-weight="bold" font-family="monospace">FK</text>
+    <text x="150" y="16" fill="#cbd5e1" font-size="11">Foreign Key</text>
+
+    <line x1="235" y1="12" x2="265" y2="12" stroke="#38bdf8" stroke-width="2" marker-end="url(#crow-blue)"/>
+    <text x="275" y="16" fill="#cbd5e1" font-size="11">1 : N Cardinality</text>
+  </g>
+
+  <!-- CONNECTOR PATHS -->
+  <!-- 1. departments -> students (330, 115) -> (360, 115) -> (360, 205) -> (390, 205) -->
+  <path d="M 330 115 L 360 115 L 360 205 L 390 205" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow-blue)"/>
+
+  <!-- 2. departments -> courses (195, 255) -> (195, 350) -->
+  <path d="M 195 255 L 195 350" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow-blue)"/>
+
+  <!-- 3. students -> enrollments (525, 315) -> (525, 400) -->
+  <path d="M 525 315 L 525 400" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow-blue)"/>
+
+  <!-- 4. courses -> enrollments (330, 395) -> (360, 395) -> (360, 465) -> (390, 465) -->
+  <path d="M 330 395 L 360 395 L 360 465 L 390 465" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow-blue)"/>
+
+  <!-- 5. enrollments -> attendance (660, 425) -> (690, 425) -> (690, 395) -> (720, 395) -->
+  <path d="M 660 425 L 690 425 L 690 395 L 720 395" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#crow-emerald)"/>
+
+  <!-- 6. enrollments -> assessments (660, 425) -> (690, 425) -> (690, 585) -> (720, 585) -->
+  <path d="M 660 425 L 690 425 L 690 585 L 720 585" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#crow-emerald)"/>
+
+  <!-- 7. courses -> scenarios (195, 575) -> (195, 870) -> (1180, 870) -> (1180, 825) -->
+  <path d="M 195 575 L 195 870 L 1180 870 L 1180 825" fill="none" stroke="#a78bfa" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#crow-purple)"/>
+
+  <!-- 8. analysis_sessions -> generated_queries (1180, 275) -> (1180, 350) -->
+  <path d="M 1180 275 L 1180 350" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)"/>
+
+  <!-- 9. analysis_sessions -> scenarios (1320, 115) -> (1350, 115) -> (1350, 685) -> (1320, 685) -->
+  <path d="M 1320 115 L 1350 115 L 1350 685 L 1320 685" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)"/>
+
+  <!-- 10. scenarios -> scenario_results (1320, 625) -> (1380, 625) -->
+  <path d="M 1320 625 L 1380 625" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)"/>
+
+  <!-- TABLE: departments -->
+  <g transform="translate(60, 90)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="270" height="192" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="270" height="192" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 264 0 Q 270 0 270 6 L 270 32 L 0 32 Z" fill="#1e293b"/>
+    <line x1="0" y1="0" x2="270" y2="0" stroke="#38bdf8" stroke-width="3"/>
+    <line x1="0" y1="32" x2="270" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">departments</text>
+    <text x="258" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">department_id</text>
+      <text x="260" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="33" r="2" fill="#475569"/>
+      <text x="36" y="37" fill="#e2e8f0" font-size="11" font-family="monospace">code</text>
+      <text x="260" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(10)</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">name</text>
+      <text x="260" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(100)</text>
+      <rect x="0" y="66" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">building</text>
+      <text x="260" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(50)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">budget</text>
+      <text x="260" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(12,2)</text>
+      <rect x="0" y="110" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">established_year</text>
+      <text x="260" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="260" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: courses -->
+  <g transform="translate(60, 350)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="270" height="258" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="270" height="258" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 264 0 Q 270 0 270 6 L 270 32 L 0 32 Z" fill="#1e293b"/>
+    <line x1="0" y1="0" x2="270" y2="0" stroke="#38bdf8" stroke-width="3"/>
+    <line x1="0" y1="32" x2="270" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">courses</text>
+    <text x="258" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">course_id</text>
+      <text x="260" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">department_id</text>
+      <text x="260" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">code</text>
+      <text x="260" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <rect x="0" y="66" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">title</text>
+      <text x="260" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(150)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">credits</text>
+      <text x="260" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="110" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">capacity</text>
+      <text x="260" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">semester</text>
+      <text x="260" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <rect x="0" y="154" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">instructor_name</text>
+      <text x="260" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(100)</text>
+      <circle cx="20" cy="187" r="2" fill="#475569"/>
+      <text x="36" y="191" fill="#e2e8f0" font-size="11" font-family="monospace">passing_grade</text>
+      <text x="260" y="191" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(5,2)</text>
+      <rect x="0" y="198" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="209" r="2" fill="#475569"/>
+      <text x="36" y="213" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="260" y="213" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: students -->
+  <g transform="translate(390, 90)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="270" height="258" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="270" height="258" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 264 0 Q 270 0 270 6 L 270 32 L 0 32 Z" fill="#1e293b"/>
+    <line x1="0" y1="0" x2="270" y2="0" stroke="#38bdf8" stroke-width="3"/>
+    <line x1="0" y1="32" x2="270" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">students</text>
+    <text x="258" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">student_id</text>
+      <text x="260" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="33" r="2" fill="#475569"/>
+      <text x="36" y="37" fill="#e2e8f0" font-size="11" font-family="monospace">student_number</text>
+      <text x="260" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">first_name</text>
+      <text x="260" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(50)</text>
+      <rect x="0" y="66" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">last_name</text>
+      <text x="260" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(50)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">email</text>
+      <text x="260" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(100)</text>
+      <rect x="0" y="110" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="114" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="124" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="125" fill="#7dd3fc" font-size="11" font-family="monospace">department_id</text>
+      <text x="260" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">enrollment_year</text>
+      <text x="260" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="154" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">status</text>
+      <text x="260" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <circle cx="20" cy="187" r="2" fill="#475569"/>
+      <text x="36" y="191" fill="#e2e8f0" font-size="11" font-family="monospace">gpa</text>
+      <text x="260" y="191" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(3,2)</text>
+      <rect x="0" y="198" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="209" r="2" fill="#475569"/>
+      <text x="36" y="213" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="260" y="213" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: enrollments -->
+  <g transform="translate(390, 400)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="270" height="236" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="270" height="236" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 264 0 Q 270 0 270 6 L 270 32 L 0 32 Z" fill="#1e293b"/>
+    <line x1="0" y1="0" x2="270" y2="0" stroke="#38bdf8" stroke-width="3"/>
+    <line x1="0" y1="32" x2="270" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">enrollments</text>
+    <text x="258" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">enrollment_id</text>
+      <text x="260" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">student_id</text>
+      <text x="260" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="10" y="48" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="58" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="59" fill="#7dd3fc" font-size="11" font-family="monospace">course_id</text>
+      <text x="260" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="66" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">semester</text>
+      <text x="260" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">final_score</text>
+      <text x="260" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(5,2)</text>
+      <rect x="0" y="110" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">letter_grade</text>
+      <text x="260" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(5)</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">is_passed</text>
+      <text x="260" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">BOOL (STORED)</text>
+      <rect x="0" y="154" width="270" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">enrollment_date</text>
+      <text x="260" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">DATE</text>
+      <circle cx="20" cy="187" r="2" fill="#475569"/>
+      <text x="36" y="191" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="260" y="191" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: attendance -->
+  <g transform="translate(720, 350)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="260" height="148" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="260" height="148" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 254 0 Q 260 0 260 6 L 260 32 L 0 32 Z" fill="#132e27"/>
+    <line x1="0" y1="0" x2="260" y2="0" stroke="#34d399" stroke-width="3"/>
+    <line x1="0" y1="32" x2="260" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">attendance</text>
+    <text x="248" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">attendance_id</text>
+      <text x="250" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">enrollment_id</text>
+      <text x="250" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">session_date</text>
+      <text x="250" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">DATE</text>
+      <rect x="0" y="66" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">status</text>
+      <text x="250" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(15)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="250" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: assessments -->
+  <g transform="translate(720, 540)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="260" height="236" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="260" height="236" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 254 0 Q 260 0 260 6 L 260 32 L 0 32 Z" fill="#132e27"/>
+    <line x1="0" y1="0" x2="260" y2="0" stroke="#34d399" stroke-width="3"/>
+    <line x1="0" y1="32" x2="260" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">assessments</text>
+    <text x="248" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">assessment_id</text>
+      <text x="250" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">enrollment_id</text>
+      <text x="250" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">assessment_type</text>
+      <text x="250" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <rect x="0" y="66" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">title</text>
+      <text x="250" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(100)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">max_score</text>
+      <text x="250" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(5,2)</text>
+      <rect x="0" y="110" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">score_obtained</text>
+      <text x="250" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(5,2)</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">assessment_date</text>
+      <text x="250" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">DATE</text>
+      <rect x="0" y="154" width="260" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">weight_percentage</text>
+      <text x="250" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(5,2)</text>
+      <circle cx="20" cy="187" r="2" fill="#475569"/>
+      <text x="36" y="191" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="250" y="191" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: analysis_sessions -->
+  <g transform="translate(1040, 90)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="280" height="214" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="280" height="214" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 274 0 Q 280 0 280 6 L 280 32 L 0 32 Z" fill="#271f38"/>
+    <line x1="0" y1="0" x2="280" y2="0" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="0" y1="32" x2="280" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">analysis_sessions</text>
+    <text x="268" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">session_id</text>
+      <text x="270" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="33" r="2" fill="#475569"/>
+      <text x="36" y="37" fill="#e2e8f0" font-size="11" font-family="monospace">title</text>
+      <text x="270" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(200)</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">natural_language_question</text>
+      <text x="270" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <rect x="0" y="66" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">explanation</text>
+      <text x="270" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">assumptions</text>
+      <text x="270" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <rect x="0" y="110" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">chart_type</text>
+      <text x="270" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">chart_config</text>
+      <text x="270" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">JSONB</text>
+      <rect x="0" y="154" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="270" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: generated_queries -->
+  <g transform="translate(1040, 350)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="280" height="214" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="280" height="214" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 274 0 Q 280 0 280 6 L 280 32 L 0 32 Z" fill="#271f38"/>
+    <line x1="0" y1="0" x2="280" y2="0" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="0" y1="32" x2="280" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">generated_queries</text>
+    <text x="268" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">query_id</text>
+      <text x="270" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">session_id</text>
+      <text x="270" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">sql_query</text>
+      <text x="270" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <rect x="0" y="66" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">execution_status</text>
+      <text x="270" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(20)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">execution_time_ms</text>
+      <text x="270" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="110" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">rows_returned</text>
+      <text x="270" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">error_message</text>
+      <text x="270" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <rect x="0" y="154" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">executed_at</text>
+      <text x="270" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: scenarios -->
+  <g transform="translate(1040, 600)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="280" height="258" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="280" height="258" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 274 0 Q 280 0 280 6 L 280 32 L 0 32 Z" fill="#271f38"/>
+    <line x1="0" y1="0" x2="280" y2="0" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="0" y1="32" x2="280" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">scenarios</text>
+    <text x="268" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">scenario_id</text>
+      <text x="270" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="33" r="2" fill="#475569"/>
+      <text x="36" y="37" fill="#e2e8f0" font-size="11" font-family="monospace">title</text>
+      <text x="270" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(200)</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">scenario_type</text>
+      <text x="270" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">VARCHAR(50)</text>
+      <rect x="0" y="66" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="70" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="80" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="81" fill="#7dd3fc" font-size="11" font-family="monospace">origin_session_id</text>
+      <text x="270" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="10" y="92" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="102" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="103" fill="#7dd3fc" font-size="11" font-family="monospace">course_id</text>
+      <text x="270" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="110" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">parameters</text>
+      <text x="270" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">JSONB</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">baseline_summary</text>
+      <text x="270" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">JSONB</text>
+      <rect x="0" y="154" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">simulation_summary</text>
+      <text x="270" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">JSONB</text>
+      <circle cx="20" cy="187" r="2" fill="#475569"/>
+      <text x="36" y="191" fill="#e2e8f0" font-size="11" font-family="monospace">formula_explanation</text>
+      <text x="270" y="191" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TEXT</text>
+      <rect x="0" y="198" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="209" r="2" fill="#475569"/>
+      <text x="36" y="213" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="270" y="213" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <!-- TABLE: scenario_results -->
+  <g transform="translate(1380, 600)">
+    <!-- Drop Shadow -->
+    <rect x="2" y="2" width="280" height="214" rx="6" fill="rgba(0,0,0,0.4)"/>
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="280" height="214" rx="6" fill="#1b202c" stroke="#2f374a" stroke-width="1"/>
+    
+    <!-- Table Header Bar -->
+    <path d="M 0 6 Q 0 0 6 0 L 274 0 Q 280 0 280 6 L 280 32 L 0 32 Z" fill="#271f38"/>
+    <line x1="0" y1="0" x2="280" y2="0" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="0" y1="32" x2="280" y2="32" stroke="#2f374a" stroke-width="1"/>
+
+    <!-- Table Title -->
+    <text x="12" y="21" fill="#f8fafc" font-size="13" font-weight="bold" font-family="monospace">scenario_results</text>
+    <text x="268" y="20" text-anchor="end" fill="#94a3b8" font-size="10" font-family="monospace">public</text>
+
+    <!-- Column Rows -->
+    <g transform="translate(0, 36)">
+      <rect x="10" y="4" width="20" height="13" rx="2" fill="#eab308"/>
+      <text x="13" y="14" fill="#000" font-size="8.5" font-weight="bold" font-family="monospace">PK</text>
+      <text x="36" y="15" fill="#fde047" font-size="11" font-family="monospace">result_id</text>
+      <text x="270" y="15" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="22" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <rect x="10" y="26" width="20" height="13" rx="2" fill="#0284c7"/>
+      <text x="14" y="36" fill="#fff" font-size="8.5" font-weight="bold" font-family="monospace">FK</text>
+      <text x="36" y="37" fill="#7dd3fc" font-size="11" font-family="monospace">scenario_id</text>
+      <text x="270" y="37" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <circle cx="20" cy="55" r="2" fill="#475569"/>
+      <text x="36" y="59" fill="#e2e8f0" font-size="11" font-family="monospace">entity_id</text>
+      <text x="270" y="59" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">INT4</text>
+      <rect x="0" y="66" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="77" r="2" fill="#475569"/>
+      <text x="36" y="81" fill="#e2e8f0" font-size="11" font-family="monospace">baseline_metric</text>
+      <text x="270" y="81" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(8,2)</text>
+      <circle cx="20" cy="99" r="2" fill="#475569"/>
+      <text x="36" y="103" fill="#e2e8f0" font-size="11" font-family="monospace">simulated_metric</text>
+      <text x="270" y="103" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(8,2)</text>
+      <rect x="0" y="110" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="121" r="2" fill="#475569"/>
+      <text x="36" y="125" fill="#e2e8f0" font-size="11" font-family="monospace">delta_metric</text>
+      <text x="270" y="125" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">NUMERIC(8,2)</text>
+      <circle cx="20" cy="143" r="2" fill="#475569"/>
+      <text x="36" y="147" fill="#e2e8f0" font-size="11" font-family="monospace">details</text>
+      <text x="270" y="147" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">JSONB</text>
+      <rect x="0" y="154" width="280" height="22" fill="rgba(255,255,255,0.015)"/>
+      <circle cx="20" cy="165" r="2" fill="#475569"/>
+      <text x="36" y="169" fill="#e2e8f0" font-size="11" font-family="monospace">created_at</text>
+      <text x="270" y="169" text-anchor="end" fill="#64748b" font-size="10" font-family="monospace">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+  <g transform="translate(60, 915)">
+    <rect x="0" y="0" width="700" height="42" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="18" fill="#f8fafc" font-size="12" font-weight="bold" font-family="monospace">DataWise Relational Schema Proof &#8226; Fully Normalized 3NF</text>
+    <text x="16" y="33" fill="#94a3b8" font-size="11" font-family="monospace">PostgreSQL 18.6 Enterprise &#8226; Physical Storage: C:/Program Files/PostgreSQL/18/data</text>
+  </g>
+</svg>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DataWise — PostgreSQL 18 Relational ER Diagram (SQL Workbench)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #1e222b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #e2e8f0;
+      overflow-x: auto;
+      min-width: 1720px;
+      min-height: 1080px;
+    }
+    
+    /* Workbench Top Toolbar */
+    .workbench-bar {
+      background: #14171f;
+      border-bottom: 1px solid #2d3342;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .db-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #38bdf8;
+      letter-spacing: 0.5px;
+    }
+    .db-badge {
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #94a3b8;
+    }
+    .bar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #0f172a;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+    
+    /* Canvas Area with Workbench Grid */
+    .diagram-container {
+      position: relative;
+      width: 1720px;
+      height: 1040px;
+      background-color: #1a1e27;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      padding: 30px;
+    }
+
+    /* SVG Connector Overlay */
+    svg.connectors {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* SQL Workbench Table Cards */
+    .table-card {
+      position: absolute;
+      background: #1e2430;
+      border: 1px solid #3b4458;
+      border-radius: 6px;
+      width: 280px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+      z-index: 20;
+      overflow: hidden;
+      font-size: 12px;
+    }
+    
+    .table-header {
+      background: linear-gradient(180deg, #2b3548 0%, #202838 100%);
+      border-bottom: 1px solid #3b4458;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-header.academic {
+      border-top: 3px solid #38bdf8;
+    }
+    .table-header.activity {
+      border-top: 3px solid #34d399;
+    }
+    .table-header.analytics {
+      border-top: 3px solid #a78bfa;
+    }
+
+    .table-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .table-schema {
+      font-size: 10px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-columns {
+      list-style: none;
+      padding: 4px 0;
+    }
+    .col-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      line-height: 18px;
+    }
+    .col-row:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .col-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .col-name {
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+    .col-type {
+      color: #94a3b8;
+      font-size: 10px;
+    }
+    .col-key {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .key-pk {
+      background: #eab308;
+      color: #000;
+    }
+    .key-fk {
+      background: #0284c7;
+      color: #fff;
+    }
+    .key-none {
+      color: #64748b;
+      font-size: 10px;
+    }
+
+    /* Watermark / Footer */
+    .diagram-meta {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      line-height: 1.6;
+    }
+    .diagram-meta strong {
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Workbench Toolbar -->
+  <div class="workbench-bar">
+    <div class="bar-left">
+      <div class="db-logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+        </svg>
+        <span>PostgreSQL 18.6 — Physical Relational ERD</span>
+      </div>
+      <div class="db-badge">Database: datawise</div>
+      <div class="db-badge">Schema: public</div>
+      <div class="db-badge">Normalization: 3NF (Burdick-Codd Validated)</div>
+      <div class="db-badge">10 Entities</div>
+    </div>
+
+    <div class="bar-right">
+      <div class="legend-item">
+        <span class="col-key key-pk">PK</span>
+        <span>Primary Key</span>
+      </div>
+      <div class="legend-item">
+        <span class="col-key key-fk">FK</span>
+        <span>Foreign Key</span>
+      </div>
+      <div class="legend-item">
+        <svg width="24" height="12">
+          <line x1="0" y1="6" x2="24" y2="6" stroke="#38bdf8" stroke-width="2"/>
+          <line x1="18" y1="2" x2="24" y2="6" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="18" y1="10" x2="24" y2="6" stroke="#38bdf8" stroke-width="1.5"/>
+        </svg>
+        <span>1 : N Identifying Relation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Canvas -->
+  <div class="diagram-container" id="canvas">
+
+    <!-- Orthogonal Connector Lines (SVG) -->
+    <svg class="connectors">
+      <defs>
+        <marker id="crow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="8" y1="1" x2="8" y2="9" stroke="#38bdf8" stroke-width="1.5"/>
+        </marker>
+        <marker id="crow-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#34d399" stroke-width="1.5"/>
+          <line x1="8" y1="1" x2="8" y2="9" stroke="#34d399" stroke-width="1.5"/>
+        </marker>
+        <marker id="crow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+          <line x1="8" y1="1" x2="8" y2="9" stroke="#a78bfa" stroke-width="1.5"/>
+        </marker>
+        <marker id="circle-start" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
+          <circle cx="5" cy="5" r="3" fill="#1e222b" stroke="#38bdf8" stroke-width="1.5"/>
+        </marker>
+      </defs>
+
+      <!-- 1. departments -> students (dept right: (330, 160) -> students left: (440, 260)) -->
+      <path d="M 330 160 L 385 160 L 385 260 L 440 260" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow)" />
+
+      <!-- 2. departments -> courses (dept bottom: (190, 310) -> courses top: (190, 460)) -->
+      <path d="M 190 310 L 190 460" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow)" />
+
+      <!-- 3. students -> enrollments (students bottom: (580, 385) -> enrollments top: (580, 520)) -->
+      <path d="M 580 385 L 580 520" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow)" />
+
+      <!-- 4. courses -> enrollments (courses right: (330, 560) -> enrollments left: (440, 560)) -->
+      <path d="M 330 560 L 440 560" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#crow)" />
+
+      <!-- 5. enrollments -> attendance (enrollments right: (720, 560) -> attendance left: (820, 540)) -->
+      <path d="M 720 560 L 770 560 L 770 540 L 820 540" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#crow-emerald)" />
+
+      <!-- 6. enrollments -> assessments (enrollments right: (720, 600) -> assessments left: (820, 740)) -->
+      <path d="M 720 600 L 770 600 L 770 740 L 820 740" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#crow-emerald)" />
+
+      <!-- 7. courses -> scenarios (courses right: (330, 620) -> down to 960 -> scenarios bottom/left: (1200, 680)) -->
+      <path d="M 330 620 L 360 620 L 360 880 L 1150 880 L 1150 680 L 1200 680" fill="none" stroke="#a78bfa" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#crow-purple)" />
+
+      <!-- 8. analysis_sessions -> generated_queries (sessions bottom: (1340, 370) -> queries top: (1340, 440)) -->
+      <path d="M 1340 370 L 1340 440" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)" />
+
+      <!-- 9. analysis_sessions -> scenarios (sessions right: (1480, 240) -> scenarios right: (1520, 240) -> down to (1520, 600) -> (1480, 600)) -->
+      <path d="M 1480 240 L 1520 240 L 1520 600 L 1480 600" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)" />
+
+      <!-- 10. scenarios -> scenario_results (scenarios left: (1200, 620) -> scenario_results right: (1100, 240)) -->
+      <path d="M 1200 620 L 1150 620 L 1150 240 L 1100 240" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#crow-purple)" />
+    </svg>
+
+    <!-- TABLE 1: departments -->
+    <div class="table-card" style="top: 100px; left: 50px;">
+      <div class="table-header academic">
+        <span class="table-title">departments</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">department_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">code</span></div><span class="col-type">VARCHAR(10)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">name</span></div><span class="col-type">VARCHAR(100)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">building</span></div><span class="col-type">VARCHAR(50)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">budget</span></div><span class="col-type">NUMERIC(12,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">established_year</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 2: courses -->
+    <div class="table-card" style="top: 460px; left: 50px;">
+      <div class="table-header academic">
+        <span class="table-title">courses</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">course_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">department_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">code</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">title</span></div><span class="col-type">VARCHAR(150)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">credits</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">capacity</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">semester</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">instructor_name</span></div><span class="col-type">VARCHAR(100)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">passing_grade</span></div><span class="col-type">NUMERIC(5,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 3: students -->
+    <div class="table-card" style="top: 100px; left: 440px;">
+      <div class="table-header academic">
+        <span class="table-title">students</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">student_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">student_number</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">first_name</span></div><span class="col-type">VARCHAR(50)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">last_name</span></div><span class="col-type">VARCHAR(50)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">email</span></div><span class="col-type">VARCHAR(100)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">department_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">enrollment_year</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">status</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">gpa</span></div><span class="col-type">NUMERIC(3,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 4: enrollments -->
+    <div class="table-card" style="top: 500px; left: 440px;">
+      <div class="table-header academic">
+        <span class="table-title">enrollments</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">enrollment_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">student_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">course_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">semester</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">final_score</span></div><span class="col-type">NUMERIC(5,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">letter_grade</span></div><span class="col-type">VARCHAR(5)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">is_passed</span></div><span class="col-type">BOOL (STORED)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">enrollment_date</span></div><span class="col-type">DATE</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 5: attendance -->
+    <div class="table-card" style="top: 460px; left: 820px;">
+      <div class="table-header activity">
+        <span class="table-title">attendance</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">attendance_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">enrollment_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">session_date</span></div><span class="col-type">DATE</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">status</span></div><span class="col-type">VARCHAR(15)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 6: assessments -->
+    <div class="table-card" style="top: 670px; left: 820px;">
+      <div class="table-header activity">
+        <span class="table-title">assessments</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">assessment_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">enrollment_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">assessment_type</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">title</span></div><span class="col-type">VARCHAR(100)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">max_score</span></div><span class="col-type">NUMERIC(5,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">score_obtained</span></div><span class="col-type">NUMERIC(5,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">assessment_date</span></div><span class="col-type">DATE</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">weight_percentage</span></div><span class="col-type">NUMERIC(5,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 7: scenario_results -->
+    <div class="table-card" style="top: 100px; left: 820px;">
+      <div class="table-header analytics">
+        <span class="table-title">scenario_results</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">result_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">scenario_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">entity_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">baseline_metric</span></div><span class="col-type">NUMERIC(8,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">simulated_metric</span></div><span class="col-type">NUMERIC(8,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">delta_metric</span></div><span class="col-type">NUMERIC(8,2)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">details</span></div><span class="col-type">JSONB</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 8: analysis_sessions -->
+    <div class="table-card" style="top: 100px; left: 1200px;">
+      <div class="table-header analytics">
+        <span class="table-title">analysis_sessions</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">session_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">title</span></div><span class="col-type">VARCHAR(200)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">natural_language_question</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">explanation</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">assumptions</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">chart_type</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">chart_config</span></div><span class="col-type">JSONB</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 9: generated_queries -->
+    <div class="table-card" style="top: 440px; left: 1200px;">
+      <div class="table-header analytics">
+        <span class="table-title">generated_queries</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">query_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">session_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">sql_query</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">execution_status</span></div><span class="col-type">VARCHAR(20)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">execution_time_ms</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">rows_returned</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">error_message</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">executed_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- TABLE 10: scenarios -->
+    <div class="table-card" style="top: 600px; left: 1200px;">
+      <div class="table-header analytics">
+        <span class="table-title">scenarios</span>
+        <span class="table-schema">public</span>
+      </div>
+      <ul class="table-columns">
+        <li class="col-row"><div class="col-left"><span class="col-key key-pk">PK</span><span class="col-name">scenario_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">title</span></div><span class="col-type">VARCHAR(200)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">scenario_type</span></div><span class="col-type">VARCHAR(50)</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">origin_session_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-fk">FK</span><span class="col-name">course_id</span></div><span class="col-type">INT4</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">parameters</span></div><span class="col-type">JSONB</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">baseline_summary</span></div><span class="col-type">JSONB</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">simulation_summary</span></div><span class="col-type">JSONB</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">formula_explanation</span></div><span class="col-type">TEXT</span></li>
+        <li class="col-row"><div class="col-left"><span class="col-key key-none">#</span><span class="col-name">created_at</span></div><span class="col-type">TIMESTAMPTZ</span></li>
+      </ul>
+    </div>
+
+    <!-- Metadata Watermark -->
+    <div class="diagram-meta">
+      <div><strong>DataWise Database Schema Architecture</strong></div>
+      <div>PostgreSQL 18.6 Enterprise Relational Engine</div>
+      <div>Host: 127.0.0.1:5432 / DB: datawise</div>
+      <div>10 Tables &bull; Strict 3NF &bull; Zero Transitive Redundancies</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -88,19 +88,31 @@ JOIN courses c ON (
 )
 CROSS JOIN LATERAL (
     SELECT ROUND(
-        LEAST(100.0, GREATEST(15.0,
+        LEAST(100.0, GREATEST(12.0,
             CASE
-                -- CS201 in Fall 2025 had notoriously low marks / higher failure rate!
+                -- CS201 in Fall 2025: Weed-out course with realistic failure rate (~25-30%)
                 WHEN c.code = 'CS201' AND c.semester = 'Fall 2025'
-                    THEN (42.0 + (random() * 32.0) + (s.gpa * 5.0))::numeric
-                -- CS201 in Spring 2026 improved significantly!
+                    THEN (24.0 + (random() * 46.0) + (s.gpa * 4.0) - CASE WHEN s.student_id % 3 = 0 THEN 18.0 ELSE 0 END)::numeric
+                -- CS201 in Spring 2026: Improved course delivery (~8% failure rate)
                 WHEN c.code = 'CS201' AND c.semester = 'Spring 2026'
-                    THEN (58.0 + (random() * 30.0) + (s.gpa * 6.0))::numeric
-                -- CS301 rigorous database course
+                    THEN (52.0 + (random() * 32.0) + (s.gpa * 6.0))::numeric
+                -- MATH101 in Fall 2025: Tough calculus weed-out (~20% failure rate)
+                WHEN c.code = 'MATH101' AND c.semester = 'Fall 2025'
+                    THEN (28.0 + (random() * 44.0) + (s.gpa * 4.5) - CASE WHEN s.student_id % 4 = 0 THEN 16.0 ELSE 0 END)::numeric
+                -- MATH101 in Spring 2026: (~8% failure rate)
+                WHEN c.code = 'MATH101' AND c.semester = 'Spring 2026'
+                    THEN (48.0 + (random() * 38.0) + (s.gpa * 6.0))::numeric
+                -- EE101 in Fall 2025: Linear Circuits (~15% failure rate)
+                WHEN c.code = 'EE101' AND c.semester = 'Fall 2025'
+                    THEN (32.0 + (random() * 42.0) + (s.gpa * 5.0) - CASE WHEN s.student_id % 5 = 0 THEN 14.0 ELSE 0 END)::numeric
+                -- CS301 Database Systems: (~8% failure rate)
                 WHEN c.code = 'CS301'
-                    THEN (52.0 + (random() * 36.0) + (s.gpa * 5.5))::numeric
+                    THEN (44.0 + (random() * 40.0) + (s.gpa * 5.5) - CASE WHEN s.student_id % 7 = 0 THEN 12.0 ELSE 0 END)::numeric
+                -- DS201 Statistical ML: (~5% failure rate)
+                WHEN c.code = 'DS201'
+                    THEN (48.0 + (random() * 38.0) + (s.gpa * 5.5))::numeric
                 -- General courses
-                ELSE (50.0 + (random() * 38.0) + (s.gpa * 6.0))::numeric
+                ELSE (44.0 + (random() * 42.0) + (s.gpa * 5.0))::numeric
             END
         ))::numeric, 2
     ) AS final_score
@@ -134,10 +146,20 @@ SELECT
     e.enrollment_id,
     base_date + (session_num * 7),
     CASE
-        WHEN (random() * 100.0) < (e.final_score * 0.85 + 10.0) THEN 'present'
-        WHEN random() < 0.20 THEN 'late'
-        WHEN random() < 0.40 THEN 'excused'
-        ELSE 'absent'
+        WHEN e.final_score < 50 THEN 
+            CASE 
+                WHEN (random() * 100.0) < (e.final_score * 0.70) THEN 'present'
+                WHEN random() < 0.35 THEN 'late'
+                WHEN random() < 0.50 THEN 'excused'
+                ELSE 'absent'
+            END
+        ELSE
+            CASE
+                WHEN (random() * 100.0) < (e.final_score * 0.85 + 12.0) THEN 'present'
+                WHEN random() < 0.20 THEN 'late'
+                WHEN random() < 0.35 THEN 'excused'
+                ELSE 'absent'
+            END
     END
 FROM enrollments e
 CROSS JOIN generate_series(1, 10) AS session_num
